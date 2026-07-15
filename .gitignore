@@ -59,3 +59,5 @@ next-env.d.ts
 prisma/generated/
 # Sentry Config File
 .env.sentry-build-plugin
+.vercel
+.env*
