@@ -40,13 +40,17 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
     case "pickupCity":
       return "thankYou";
     case "personalInfo":
+      // personalInfo is shared across three branches, so where it goes next
+      // depends on which one led here.
+      if (answers.giftOption === "gift_card") return "giftCardLocation";
+      if (answers.giftOption === "donation") return "thankYou";
       return "contactInfo";
     case "contactInfo":
       return "postOffice";
     case "postOffice":
       return "thankYou";
     case "giftDetail_giftCard":
-      return "giftCardLocation";
+      return "personalInfo";
     case "giftCardLocation":
       return answers.giftCardLocation
         ? GIFT_CARD_SERVICE_STEP_BY_LOCATION[answers.giftCardLocation]
@@ -59,7 +63,7 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
     case "giftCardService_other":
       return "thankYou";
     case "giftDetail_donation":
-      return "thankYou";
+      return "personalInfo";
     case "thankYou":
       return null;
   }
@@ -92,12 +96,19 @@ const PATH_GIFT_CARD: StepId[] = [
   "intro",
   "giftChoice",
   "giftDetail_giftCard",
+  "personalInfo",
   "giftCardLocation",
   "giftCardService_ukraine",
   "thankYou",
 ];
 
-const PATH_DONATION: StepId[] = ["intro", "giftChoice", "giftDetail_donation", "thankYou"];
+const PATH_DONATION: StepId[] = [
+  "intro",
+  "giftChoice",
+  "giftDetail_donation",
+  "personalInfo",
+  "thankYou",
+];
 
 function canonicalizeForProgress(stepId: StepId): StepId {
   if (stepId.startsWith("giftCardService_")) return "giftCardService_ukraine";

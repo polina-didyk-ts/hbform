@@ -45,11 +45,13 @@ test.describe("Gift form", () => {
 
   test("submits the gift card branch and skips delivery questions", async ({ page }) => {
     const giftForm = new GiftFormPage(page);
+    const member = createTestGiftMember(Date.now());
 
     await giftForm.goto();
     await giftForm.start();
     await giftForm.selectGiftCard();
     await giftForm.continueFromGiftCardDetail();
+    await giftForm.fillPersonalInfo(member);
     await giftForm.selectGiftCardLocation("ukraine");
     await giftForm.selectGiftCardService("bodo");
 
@@ -63,12 +65,14 @@ test.describe("Gift form", () => {
 
   test("submits the donation branch with a blank charity link", async ({ page }) => {
     const giftForm = new GiftFormPage(page);
+    const member = createTestGiftMember(Date.now());
 
     await giftForm.goto();
     await giftForm.start();
     await giftForm.selectDonation();
     // Leaving the charity link blank is a valid answer — the manager picks one.
     await giftForm.submitDonation();
+    await giftForm.fillPersonalInfo(member);
     await giftForm.submit();
 
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();

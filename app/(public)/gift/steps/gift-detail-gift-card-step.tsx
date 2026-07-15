@@ -4,7 +4,7 @@ import { StepShell } from "../step-shell";
 import { getProgress } from "../step-config";
 import type { StepProps } from "../types";
 
-// One small photo/illustration slot — 600x600px once designers deliver it.
+// One photo/illustration slot — 800x1200px (portrait) once designers deliver it.
 export function GiftDetailGiftCardStep({ answers, onNext, onBack, canGoBack }: StepProps) {
   return (
     <StepShell
@@ -20,7 +20,7 @@ export function GiftDetailGiftCardStep({ answers, onNext, onBack, canGoBack }: S
           country of residence 🙌
         </p>
       </div>
-      <PlaceholderImage className="h-40 w-40" label="600×600" />
+      <PlaceholderImage className="h-60 w-40" label="800×1200" />
       <Button
         data-testid="gift-detail-gift-card-continue"
         onClick={() => onNext("giftDetail_giftCard", {})}

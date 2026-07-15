@@ -97,6 +97,18 @@ export const submitGiftResponseSchema = z
         });
       }
     }
+
+    // Gift card and donation don't ship anything, but we still need to know who
+    // the response belongs to.
+    if (data.giftOption === "gift_card" || data.giftOption === "donation") {
+      if (!data.personalInfo) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["personalInfo"],
+          message: `personalInfo is required when giftOption is '${data.giftOption}'`,
+        });
+      }
+    }
   });
 
 export type SubmitGiftResponseDto = z.infer<typeof submitGiftResponseSchema>;
