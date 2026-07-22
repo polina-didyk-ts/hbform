@@ -36,14 +36,15 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
     case "giftDetail_merch":
       return "deliveryMethod";
     case "deliveryMethod":
-      return answers.deliveryMethod === "hub" ? "pickupCity" : "personalInfo";
+      return "personalInfo";
     case "pickupCity":
       return "thankYou";
     case "personalInfo":
-      // personalInfo is shared across three branches, so where it goes next
+      // personalInfo is shared across four branches, so where it goes next
       // depends on which one led here.
       if (answers.giftOption === "gift_card") return "giftCardLocation";
       if (answers.giftOption === "donation") return "thankYou";
+      if (answers.deliveryMethod === "hub") return "pickupCity";
       return "contactInfo";
     case "contactInfo":
       return "postOffice";
@@ -75,6 +76,7 @@ const PATH_HUB: StepId[] = [
   "giftChoice",
   "giftDetail_spaceBlanket",
   "deliveryMethod",
+  "personalInfo",
   "pickupCity",
   "thankYou",
 ];

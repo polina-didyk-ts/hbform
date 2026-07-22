@@ -25,18 +25,39 @@ test.describe("Gift form", () => {
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();
   });
 
-  test("submits the hub pickup branch and skips personal info", async ({ page }) => {
+  test("submits the hub pickup branch through personal info and pickup city", async ({ page }) => {
     const giftForm = new GiftFormPage(page);
+    const member = createTestGiftMember(Date.now());
 
     await giftForm.goto();
     await giftForm.start();
     await giftForm.selectSpaceBlanket();
     await giftForm.continueFromGiftDetail();
     await giftForm.selectDeliveryMethod("hub");
+    await giftForm.fillPersonalInfo(member);
     await giftForm.selectPickupCity("kyiv");
 
-    // Pickup branch goes straight to the thank-you screen — no personal info collected.
-    await expect(page.getByTestId("gift-step-personal-info")).toHaveCount(0);
+    // Pickup branch skips the shipping address/post office screens.
+    await expect(page.getByTestId("gift-step-contact-info")).toHaveCount(0);
+
+    await giftForm.submit();
+
+    await expect(page.getByTestId("gift-submit-success")).toBeVisible();
+  });
+
+  test("submits the merch hub pickup branch through personal info and pickup city", async ({
+    page,
+  }) => {
+    const giftForm = new GiftFormPage(page);
+    const member = createTestGiftMember(Date.now());
+
+    await giftForm.goto();
+    await giftForm.start();
+    await giftForm.selectMerch();
+    await giftForm.continueFromMerchDetail();
+    await giftForm.selectDeliveryMethod("hub");
+    await giftForm.fillPersonalInfo(member);
+    await giftForm.selectPickupCity("wroclaw");
 
     await giftForm.submit();
 
