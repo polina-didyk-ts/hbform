@@ -1,14 +1,15 @@
-import { OptionCard, PlaceholderImage } from "../option-card";
+import Image from "next/image";
+import { OptionCard } from "../option-card";
 import { StepShell } from "../step-shell";
 import { getProgress } from "../step-config";
 import type { GiftOption, StepProps } from "../types";
 
 // Thumbnail source images should be delivered at 1200x1200px (square).
-const GIFT_OPTIONS: Array<{ id: GiftOption; label: string }> = [
-  { id: "space_blanket", label: "Space blanket" },
-  { id: "gift_card", label: "Gift card" },
-  { id: "donation", label: "Donation" },
-  { id: "merch", label: "Company merch" },
+const GIFT_OPTIONS: Array<{ id: GiftOption; label: string; image: string }> = [
+  { id: "space_blanket", label: "Space blanket", image: "/gift/space-blanket.png" },
+  { id: "gift_card", label: "Gift card", image: "/gift/gift-card.png" },
+  { id: "donation", label: "Donation", image: "/gift/donation.png" },
+  { id: "merch", label: "Company merch", image: "/gift/merch.png" },
 ];
 
 export function ImageChoiceStep({ answers, onNext, onBack, canGoBack }: StepProps) {
@@ -28,7 +29,16 @@ export function ImageChoiceStep({ answers, onNext, onBack, canGoBack }: StepProp
             label={option.label}
             onSelect={() => onNext("giftChoice", { giftOption: option.id })}
           >
-            <PlaceholderImage className="mb-3 aspect-square w-full" label="1200×1200" />
+            <div className="relative mb-3 aspect-square w-full overflow-hidden rounded-lg">
+              <Image
+                src={option.image}
+                alt={option.label}
+                fill
+                priority
+                sizes="(min-width: 640px) 260px, 45vw"
+                className="object-cover"
+              />
+            </div>
           </OptionCard>
         ))}
       </div>

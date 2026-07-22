@@ -1,10 +1,10 @@
+import Image from "next/image";
 import { Button } from "@/app/components/ui/button";
-import { PlaceholderImage } from "../option-card";
 import { StepShell } from "../step-shell";
 import { getProgress } from "../step-config";
 import type { StepProps } from "../types";
 
-// One photo/illustration slot — 1200x800px (landscape) once designers deliver it.
+// One photo/illustration slot — 1200x800px (landscape).
 export function GiftDetailGiftCardStep({ answers, onNext, onBack, canGoBack }: StepProps) {
   return (
     <StepShell
@@ -20,7 +20,16 @@ export function GiftDetailGiftCardStep({ answers, onNext, onBack, canGoBack }: S
           country of residence 🙌
         </p>
       </div>
-      <PlaceholderImage className="h-40 w-60" label="1200×800" />
+      <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg">
+        <Image
+          src="/gift/gift-card.png"
+          alt="Gift card"
+          fill
+          priority
+          sizes="(min-width: 640px) 480px, 100vw"
+          className="object-cover"
+        />
+      </div>
       <Button
         data-testid="gift-detail-gift-card-continue"
         onClick={() => onNext("giftDetail_giftCard", {})}

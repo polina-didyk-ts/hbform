@@ -37,16 +37,3 @@ export function OptionCard({
     </button>
   );
 }
-
-export function PlaceholderImage({ className, label }: { className?: string; label: string }) {
-  return (
-    <div
-      className={cn(
-        "flex items-center justify-center rounded-lg border border-dashed border-border bg-muted text-center text-xs text-muted-foreground",
-        className
-      )}
-    >
-      {label}
-    </div>
-  );
-}
