@@ -20,6 +20,7 @@ test.describe("Gift form", () => {
       country: "Ukraine",
     });
     await giftForm.fillPostOfficeAddress("Nova Poshta #12");
+    await giftForm.fillFeedback("Loved the process, thanks!");
     await giftForm.submit();
 
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();
@@ -40,6 +41,7 @@ test.describe("Gift form", () => {
     // Pickup branch skips the shipping address/post office screens.
     await expect(page.getByTestId("gift-step-contact-info")).toHaveCount(0);
 
+    await giftForm.fillFeedback();
     await giftForm.submit();
 
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();
@@ -59,6 +61,7 @@ test.describe("Gift form", () => {
     await giftForm.fillPersonalInfo(member);
     await giftForm.selectPickupCity("wroclaw");
 
+    await giftForm.fillFeedback();
     await giftForm.submit();
 
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();
@@ -79,6 +82,7 @@ test.describe("Gift form", () => {
     // Gift cards are digital — no delivery method or address collected.
     await expect(page.getByTestId("gift-step-delivery-method")).toHaveCount(0);
 
+    await giftForm.fillFeedback();
     await giftForm.submit();
 
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();
@@ -94,6 +98,7 @@ test.describe("Gift form", () => {
     // Leaving the charity link blank is a valid answer — the manager picks one.
     await giftForm.submitDonation();
     await giftForm.fillPersonalInfo(member);
+    await giftForm.fillFeedback();
     await giftForm.submit();
 
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();
@@ -116,6 +121,7 @@ test.describe("Gift form", () => {
       country: "Ukraine",
     });
     await giftForm.fillPostOfficeAddress("Nova Poshta #12");
+    await giftForm.fillFeedback("Loved the process, thanks!");
     await giftForm.submit();
 
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();

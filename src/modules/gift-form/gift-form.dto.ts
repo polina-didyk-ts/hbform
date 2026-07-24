@@ -33,6 +33,8 @@ export const submitGiftResponseSchema = z
     giftCardService: z.string().min(1).max(200).optional(),
     // Optional — leaving it blank means "let the manager pick a charity".
     donationCharityLink: z.string().max(500).optional(),
+    // Optional free-text feedback, collected right before the thank-you screen.
+    feedback: z.string().max(1000).optional(),
     // Full stepId -> answer map from the wizard, kept for forward-compat as new branches are added.
     rawAnswers: z.record(z.string(), z.unknown()),
   })

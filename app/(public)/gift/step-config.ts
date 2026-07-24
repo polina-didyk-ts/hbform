@@ -38,18 +38,18 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
     case "deliveryMethod":
       return "personalInfo";
     case "pickupCity":
-      return "thankYou";
+      return "feedback";
     case "personalInfo":
       // personalInfo is shared across four branches, so where it goes next
       // depends on which one led here.
       if (answers.giftOption === "gift_card") return "giftCardLocation";
-      if (answers.giftOption === "donation") return "thankYou";
+      if (answers.giftOption === "donation") return "feedback";
       if (answers.deliveryMethod === "hub") return "pickupCity";
       return "contactInfo";
     case "contactInfo":
       return "postOffice";
     case "postOffice":
-      return "thankYou";
+      return "feedback";
     case "giftDetail_giftCard":
       return "personalInfo";
     case "giftCardLocation":
@@ -62,9 +62,11 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
     case "giftCardService_canada":
     case "giftCardService_usa":
     case "giftCardService_other":
-      return "thankYou";
+      return "feedback";
     case "giftDetail_donation":
       return "personalInfo";
+    case "feedback":
+      return "thankYou";
     case "thankYou":
       return null;
   }
@@ -78,6 +80,7 @@ const PATH_HUB: StepId[] = [
   "deliveryMethod",
   "personalInfo",
   "pickupCity",
+  "feedback",
   "thankYou",
 ];
 
@@ -89,6 +92,7 @@ const PATH_HOME: StepId[] = [
   "personalInfo",
   "contactInfo",
   "postOffice",
+  "feedback",
   "thankYou",
 ];
 
@@ -101,6 +105,7 @@ const PATH_GIFT_CARD: StepId[] = [
   "personalInfo",
   "giftCardLocation",
   "giftCardService_ukraine",
+  "feedback",
   "thankYou",
 ];
 
@@ -109,6 +114,7 @@ const PATH_DONATION: StepId[] = [
   "giftChoice",
   "giftDetail_donation",
   "personalInfo",
+  "feedback",
   "thankYou",
 ];
 

@@ -99,6 +99,13 @@ export class GiftFormPage {
     await this.page.getByTestId("gift-post-office-continue").click();
   }
 
+  async fillFeedback(feedback: string = "") {
+    if (feedback) {
+      await this.page.getByTestId("gift-feedback-input").fill(feedback);
+    }
+    await this.page.getByTestId("gift-feedback-continue").click();
+  }
+
   async submit() {
     await this.page.getByTestId("gift-submit-button").click();
   }

@@ -176,6 +176,8 @@ model GiftResponse {
 
   donationCharityLink String?
 
+  feedback String?
+
   rawAnswers     Json
   sheetsSyncedAt DateTime?
 

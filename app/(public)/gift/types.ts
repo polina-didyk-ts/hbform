@@ -24,6 +24,7 @@ export interface GiftFormAnswers {
   giftCardLocation?: GiftCardLocation;
   giftCardService?: string;
   donationCharityLink?: string;
+  feedback?: string;
 }
 
 export type StepId =
@@ -45,6 +46,7 @@ export type StepId =
   | "giftCardService_other"
   | "giftDetail_donation"
   | "giftDetail_merch"
+  | "feedback"
   | "thankYou";
 
 export interface StepProps {

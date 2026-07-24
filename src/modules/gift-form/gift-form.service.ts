@@ -5,7 +5,7 @@ import { buildGiftResponseSheetRow } from "./gift-form.sheets";
 
 const log = logger.child({ module: "gift-form.service" });
 
-const SHEETS_RANGE = "Responses!A:M";
+const SHEETS_RANGE = "Responses!A:N";
 
 export const giftFormService = {
   async submit(data: SubmitGiftResponseDto) {
@@ -28,6 +28,7 @@ export const giftFormService = {
         giftCardLocation: data.giftCardLocation,
         giftCardService: data.giftCardService,
         donationCharityLink: data.donationCharityLink,
+        feedback: data.feedback,
         rawAnswers: data.rawAnswers as Prisma.InputJsonValue,
       },
     });

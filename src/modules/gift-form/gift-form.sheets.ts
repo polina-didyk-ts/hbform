@@ -17,6 +17,7 @@ export const GIFT_RESPONSE_SHEET_HEADER = [
   "Gift card location",
   "Gift card service",
   "Donation charity link",
+  "Feedback",
 ];
 
 export function buildGiftResponseSheetRow(
@@ -37,5 +38,6 @@ export function buildGiftResponseSheetRow(
     data.giftCardLocation ?? "",
     data.giftCardService ?? "",
     data.donationCharityLink ?? "",
+    data.feedback ?? "",
   ];
 }
