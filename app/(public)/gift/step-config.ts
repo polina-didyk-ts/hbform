@@ -42,10 +42,11 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
     case "pickupCity":
       return "feedback";
     case "personalInfo":
-      // personalInfo is shared across four branches, so where it goes next
+      // personalInfo is shared across branches, so where it goes next
       // depends on which one led here.
       if (answers.giftOption === "gift_card") return "giftCardLocation";
       if (answers.giftOption === "donation") return "feedback";
+      if (answers.giftOption === "coins") return "thankYou";
       if (answers.deliveryMethod === "hub") return "pickupCity";
       return "contactInfo";
     case "contactInfo":
@@ -67,10 +68,10 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
       return "feedback";
     case "giftDetail_donation":
       return "personalInfo";
-    // Coins is a purely informational branch — it goes straight to the thank-you
-    // screen, skipping personal info and feedback entirely.
+    // Coins doesn't ship anything, but we still need to know who redeemed it,
+    // so it collects personal info and then skips straight to thank-you.
     case "giftDetail_coins":
-      return "thankYou";
+      return "personalInfo";
     case "feedback":
       return "thankYou";
     case "thankYou":
@@ -124,7 +125,13 @@ const PATH_DONATION: StepId[] = [
   "thankYou",
 ];
 
-const PATH_COINS: StepId[] = ["intro", "giftChoice", "giftDetail_coins", "thankYou"];
+const PATH_COINS: StepId[] = [
+  "intro",
+  "giftChoice",
+  "giftDetail_coins",
+  "personalInfo",
+  "thankYou",
+];
 
 function canonicalizeForProgress(stepId: StepId): StepId {
   if (stepId.startsWith("giftCardService_")) return "giftCardService_ukraine";

@@ -106,9 +106,13 @@ export const submitGiftResponseSchema = z
       }
     }
 
-    // Gift card and donation don't ship anything, but we still need to know who
-    // the response belongs to.
-    if (data.giftOption === "gift_card" || data.giftOption === "donation") {
+    // Gift card, donation, and coins don't ship anything, but we still need to
+    // know who the response belongs to.
+    if (
+      data.giftOption === "gift_card" ||
+      data.giftOption === "donation" ||
+      data.giftOption === "coins"
+    ) {
       if (!data.personalInfo) {
         ctx.addIssue({
           code: "custom",
