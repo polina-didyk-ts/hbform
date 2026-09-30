@@ -16,6 +16,7 @@ import { GiftCardLocationStep } from "./steps/gift-card-location-step";
 import { GiftCardServiceStep } from "./steps/gift-card-service-step";
 import { GiftDetailDonationStep } from "./steps/gift-detail-donation-step";
 import { GiftDetailMerchStep } from "./steps/gift-detail-merch-step";
+import { GiftDetailCoinsStep } from "./steps/gift-detail-coins-step";
 import { FeedbackStep } from "./steps/feedback-step";
 import { ThankYouStep, type SubmitStatus } from "./steps/thank-you-step";
 
@@ -187,6 +188,15 @@ export function GiftForm() {
     case "giftDetail_merch":
       return (
         <GiftDetailMerchStep
+          answers={answers}
+          onNext={handleNext}
+          onBack={handleBack}
+          canGoBack={canGoBack}
+        />
+      );
+    case "giftDetail_coins":
+      return (
+        <GiftDetailCoinsStep
           answers={answers}
           onNext={handleNext}
           onBack={handleBack}

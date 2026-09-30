@@ -1,4 +1,4 @@
-export type GiftOption = "space_blanket" | "gift_card" | "donation" | "merch";
+export type GiftOption = "space_blanket" | "gift_card" | "donation" | "merch" | "coins";
 export type DeliveryMethod = "home" | "hub";
 export type PickupCity = "Lviv" | "Kyiv" | "Wroclaw";
 export type GiftCardLocation = "Ukraine" | "Poland" | "Europe" | "Canada" | "USA" | "Other";
@@ -46,6 +46,7 @@ export type StepId =
   | "giftCardService_other"
   | "giftDetail_donation"
   | "giftDetail_merch"
+  | "giftDetail_coins"
   | "feedback"
   | "thankYou";
 

@@ -7,9 +7,7 @@ import type { GiftOption, StepProps } from "../types";
 // Thumbnail source images should be delivered at 1200x1200px (square).
 const GIFT_OPTIONS: Array<{ id: GiftOption; label: string; image: string }> = [
   { id: "space_blanket", label: "Space blanket", image: "/gift/space-blanket.png" },
-  { id: "gift_card", label: "Gift card", image: "/gift/gift-card.png" },
-  { id: "donation", label: "Donation", image: "/gift/donation.png" },
-  { id: "merch", label: "Company merch", image: "/gift/merch.png" },
+  { id: "coins", label: "Coins", image: "/gift/coins.jpg" },
 ];
 
 export function ImageChoiceStep({ answers, onNext, onBack, canGoBack }: StepProps) {

@@ -47,81 +47,21 @@ test.describe("Gift form", () => {
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();
   });
 
-  test("submits the merch hub pickup branch through personal info and pickup city", async ({
-    page,
-  }) => {
+  test("submits the coins branch straight through to the thank-you page", async ({ page }) => {
     const giftForm = new GiftFormPage(page);
-    const member = createTestGiftMember(Date.now());
 
     await giftForm.goto();
     await giftForm.start();
-    await giftForm.selectMerch();
-    await giftForm.continueFromMerchDetail();
-    await giftForm.selectDeliveryMethod("hub");
-    await giftForm.fillPersonalInfo(member);
-    await giftForm.selectPickupCity("wroclaw");
+    await giftForm.selectCoins();
 
-    await giftForm.fillFeedback();
-    await giftForm.submit();
+    await expect(page.getByTestId("gift-step-detail-coins")).toBeVisible();
+    await giftForm.continueFromCoinsDetail();
 
-    await expect(page.getByTestId("gift-submit-success")).toBeVisible();
-  });
+    // Coins is purely informational — no personal info or feedback collected.
+    await expect(page.getByTestId("gift-step-personal-info")).toHaveCount(0);
+    await expect(page.getByTestId("gift-step-feedback")).toHaveCount(0);
+    await expect(page.getByTestId("gift-step-thank-you")).toBeVisible();
 
-  test("submits the gift card branch and skips delivery questions", async ({ page }) => {
-    const giftForm = new GiftFormPage(page);
-    const member = createTestGiftMember(Date.now());
-
-    await giftForm.goto();
-    await giftForm.start();
-    await giftForm.selectGiftCard();
-    await giftForm.continueFromGiftCardDetail();
-    await giftForm.fillPersonalInfo(member);
-    await giftForm.selectGiftCardLocation("ukraine");
-    await giftForm.selectGiftCardService("bodo");
-
-    // Gift cards are digital — no delivery method or address collected.
-    await expect(page.getByTestId("gift-step-delivery-method")).toHaveCount(0);
-
-    await giftForm.fillFeedback();
-    await giftForm.submit();
-
-    await expect(page.getByTestId("gift-submit-success")).toBeVisible();
-  });
-
-  test("submits the donation branch with a blank charity link", async ({ page }) => {
-    const giftForm = new GiftFormPage(page);
-    const member = createTestGiftMember(Date.now());
-
-    await giftForm.goto();
-    await giftForm.start();
-    await giftForm.selectDonation();
-    // Leaving the charity link blank is a valid answer — the manager picks one.
-    await giftForm.submitDonation();
-    await giftForm.fillPersonalInfo(member);
-    await giftForm.fillFeedback();
-    await giftForm.submit();
-
-    await expect(page.getByTestId("gift-submit-success")).toBeVisible();
-  });
-
-  test("submits the merch branch through the shared home delivery flow", async ({ page }) => {
-    const giftForm = new GiftFormPage(page);
-    const member = createTestGiftMember(Date.now());
-
-    await giftForm.goto();
-    await giftForm.start();
-    await giftForm.selectMerch();
-    await giftForm.continueFromMerchDetail();
-    await giftForm.selectDeliveryMethod("home");
-    await giftForm.fillPersonalInfo(member);
-    await giftForm.fillContactInfo({
-      addressLine1: "123 Main St",
-      city: "Lviv",
-      postalCode: "79000",
-      country: "Ukraine",
-    });
-    await giftForm.fillPostOfficeAddress("Nova Poshta #12");
-    await giftForm.fillFeedback("Loved the process, thanks!");
     await giftForm.submit();
 
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();

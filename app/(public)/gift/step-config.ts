@@ -29,6 +29,8 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
           return "giftDetail_donation";
         case "merch":
           return "giftDetail_merch";
+        case "coins":
+          return "giftDetail_coins";
         default:
           return null;
       }
@@ -65,6 +67,10 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
       return "feedback";
     case "giftDetail_donation":
       return "personalInfo";
+    // Coins is a purely informational branch — it goes straight to the thank-you
+    // screen, skipping personal info and feedback entirely.
+    case "giftDetail_coins":
+      return "thankYou";
     case "feedback":
       return "thankYou";
     case "thankYou":
@@ -118,6 +124,8 @@ const PATH_DONATION: StepId[] = [
   "thankYou",
 ];
 
+const PATH_COINS: StepId[] = ["intro", "giftChoice", "giftDetail_coins", "thankYou"];
+
 function canonicalizeForProgress(stepId: StepId): StepId {
   if (stepId.startsWith("giftCardService_")) return "giftCardService_ukraine";
   // Merch reuses the exact same delivery flow as the space blanket, just with a
@@ -135,9 +143,11 @@ export function getProgress(
       ? PATH_GIFT_CARD
       : answers.giftOption === "donation"
         ? PATH_DONATION
-        : answers.deliveryMethod === "hub"
-          ? PATH_HUB
-          : PATH_HOME;
+        : answers.giftOption === "coins"
+          ? PATH_COINS
+          : answers.deliveryMethod === "hub"
+            ? PATH_HUB
+            : PATH_HOME;
   const index = path.indexOf(canonicalizeForProgress(current));
   return { index: index === -1 ? 0 : index + 1, total: path.length };
 }

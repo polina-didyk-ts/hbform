@@ -1,6 +1,12 @@
 import { z } from "zod";
 
-export const giftOptionSchema = z.enum(["space_blanket", "gift_card", "donation", "merch"]);
+export const giftOptionSchema = z.enum([
+  "space_blanket",
+  "gift_card",
+  "donation",
+  "merch",
+  "coins",
+]);
 export const deliveryMethodSchema = z.enum(["home", "hub"]);
 export const pickupCitySchema = z.enum(["Lviv", "Kyiv", "Wroclaw"]);
 export const giftCardLocationSchema = z.enum([

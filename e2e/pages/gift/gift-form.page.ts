@@ -19,45 +19,16 @@ export class GiftFormPage {
     await this.page.getByTestId("gift-option-space_blanket").click();
   }
 
-  async selectGiftCard() {
-    await this.page.getByTestId("gift-option-gift_card").click();
-  }
-
   async continueFromGiftDetail() {
     await this.page.getByTestId("gift-detail-continue").click();
   }
 
-  async continueFromGiftCardDetail() {
-    await this.page.getByTestId("gift-detail-gift-card-continue").click();
+  async selectCoins() {
+    await this.page.getByTestId("gift-option-coins").click();
   }
 
-  async selectGiftCardLocation(
-    location: "ukraine" | "poland" | "europe" | "canada" | "usa" | "other"
-  ) {
-    await this.page.getByTestId(`gift-card-location-${location}`).click();
-  }
-
-  async selectGiftCardService(serviceId: string) {
-    await this.page.getByTestId(`gift-card-service-${serviceId}`).click();
-  }
-
-  async selectDonation() {
-    await this.page.getByTestId("gift-option-donation").click();
-  }
-
-  async submitDonation(charityLink: string = "") {
-    if (charityLink) {
-      await this.page.getByTestId("gift-donation-charity-link").fill(charityLink);
-    }
-    await this.page.getByTestId("gift-donation-continue").click();
-  }
-
-  async selectMerch() {
-    await this.page.getByTestId("gift-option-merch").click();
-  }
-
-  async continueFromMerchDetail() {
-    await this.page.getByTestId("gift-detail-merch-continue").click();
+  async continueFromCoinsDetail() {
+    await this.page.getByTestId("gift-detail-coins-continue").click();
   }
 
   async selectDeliveryMethod(method: "home" | "hub") {
