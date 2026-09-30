@@ -46,7 +46,7 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
       // depends on which one led here.
       if (answers.giftOption === "gift_card") return "giftCardLocation";
       if (answers.giftOption === "donation") return "feedback";
-      if (answers.giftOption === "coins") return "thankYou";
+      if (answers.giftOption === "coins") return "feedback";
       if (answers.deliveryMethod === "hub") return "pickupCity";
       return "contactInfo";
     case "contactInfo":
@@ -69,7 +69,7 @@ export function getNextStep(current: StepId, answers: GiftFormAnswers): StepId |
     case "giftDetail_donation":
       return "personalInfo";
     // Coins doesn't ship anything, but we still need to know who redeemed it,
-    // so it collects personal info and then skips straight to thank-you.
+    // so it collects personal info before rejoining the shared feedback step.
     case "giftDetail_coins":
       return "personalInfo";
     case "feedback":
@@ -130,6 +130,7 @@ const PATH_COINS: StepId[] = [
   "giftChoice",
   "giftDetail_coins",
   "personalInfo",
+  "feedback",
   "thankYou",
 ];
 

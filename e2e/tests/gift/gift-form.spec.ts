@@ -47,7 +47,7 @@ test.describe("Gift form", () => {
     await expect(page.getByTestId("gift-submit-success")).toBeVisible();
   });
 
-  test("submits the coins branch through personal info, skipping feedback", async ({ page }) => {
+  test("submits the coins branch through personal info and feedback", async ({ page }) => {
     const giftForm = new GiftFormPage(page);
     const member = createTestGiftMember(Date.now());
 
@@ -59,9 +59,11 @@ test.describe("Gift form", () => {
     await giftForm.continueFromCoinsDetail();
     await giftForm.fillPersonalInfo(member);
 
-    // Coins doesn't ship anything, so it skips straight to thank-you — no
-    // address/feedback screens.
-    await expect(page.getByTestId("gift-step-feedback")).toHaveCount(0);
+    // Coins doesn't ship anything, so it skips straight from feedback to
+    // thank-you — no shipping address screens.
+    await expect(page.getByTestId("gift-step-contact-info")).toHaveCount(0);
+    await giftForm.fillFeedback("Loved redeeming coins!");
+
     await expect(page.getByTestId("gift-step-thank-you")).toBeVisible();
 
     await giftForm.submit();
