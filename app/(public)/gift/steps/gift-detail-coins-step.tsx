@@ -19,7 +19,7 @@ export function GiftDetailCoinsStep({ answers, onNext, onBack, canGoBack }: Step
           also choose to save them and use them later.
         </p>
       </div>
-      <div className="relative mx-auto aspect-square w-48 overflow-hidden rounded-lg">
+      <div className="relative aspect-square w-48 overflow-hidden rounded-lg">
         <Image
           src="/gift/coins.jpg"
           alt="Coins"
